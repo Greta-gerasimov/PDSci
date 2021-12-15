@@ -1,0 +1,275 @@
+
+
+Задание 1.
+
+
+x = np.arange(1, 8)
+print(x)
+
+numbers = [ 3.5, 3.8, 4.2, 4.5, 5, 5.5, 7]
+print(numbers)
+
+#plot
+plt.plot(x, numbers)
+plt.show()
+
+
+
+#scatter plot
+plt.scatter(x, numbers)
+plt.show()
+
+
+Задание 2.
+
+#linspace
+t = np.linspace(0, 11, num =  51)
+print(t)
+
+#график с пользовательскими настройками
+f = np.cos(t)
+print(f)
+plt.plot(t, f,color='green')
+plt.title( 'График f(t)')
+plt.xlabel("Переменная t")
+plt.ylabel("Функция f")
+plt.axis([0, 9.5 , -2.5, 2.5])
+plt.show()
+
+Задание 3.
+
+import numpy as np 
+x = np.linspace(-3, 3, num =  51)
+print(x)
+
+#массивы y1,y2,y3
+y1 = x * 3
+y2 = 2 * x + 0.5
+y3 = -3 * x - 1.5
+y4 = np.sin(x)
+print(y1)
+print(y2)
+print(y3)
+print(y4)
+
+
+#использование модуля subplot
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, ax = plt.subplots(nrows=2, ncols=2)
+ax1, ax2, ax3, ax4 = ax.flatten()
+
+
+#plot 1
+ax1.plot(2, 2, 1)
+ax1.plot(x, y1, 'g')
+ax1.set_title('График y1')
+ax1.set_xlim([-5, 5])
+
+#plot 2
+ax2.plot(2, 2, 2)
+ax2.plot(x, y2, '-.r')
+ax2.set_title('График y2')
+
+#plot 3
+ax3.plot(2, 2, 3)
+ax3.plot(x, y3, ':y')
+ax3.set_title('График y3')
+
+#plot 4
+ax4.plot(2, 2, 4)
+ax4.plot(x, y4, '--c')
+ax4.set_title('График y4')
+
+fig.set_size_inches(8, 6)
+fig.subplots_adjust(wspace=0.3, hspace=0.3)
+
+plt.show()
+
+
+Задание 4.
+#работа с данными
+import pandas as pd
+plt.style.use('fivethirtyeight')
+df = pd.read_csv('creditcard.csv')
+df.head()
+
+#метод value_counts
+class_ = df['Class'].value_counts()
+print(class_)
+Class_info = pd.Series(class_)
+
+#демонстрация с помощью графика
+Class_info.plot(kind="bar")
+plt.show()
+
+
+#логарифмический масштаб
+
+Class_info.plot(kind="bar", logy=True)
+plt.show()
+
+
+# v1_class1 VS v1_class0
+
+credit_df = pd.read_csv('creditcard.csv')
+credit_df.head()
+#изъятие двух необходимых колонок 
+two_colums_df =df.iloc[:, [1, 30]]
+print(two_colums_df)
+
+#соотнесение данных признака V1 и Class1
+v1_class1_df = two_colums_df[df['Class'] == 1]
+v1_class1_df = v1_class1_df.reset_index(drop=True)
+print(v1_class1_df)
+
+##соотнесение данных признака V1 и Class0
+v1_class0_df = two_colums_df[df['Class'] == 0]
+v1_class0_df = v1_class0_df.reset_index(drop=True)
+print(v1_class0_df)
+
+
+
+#демонстрация сравнения данных  признака V1 по разным типам транзакций
+from pylab import rcParams
+
+rcParams["figure.figsize"] = 9, 12
+
+plt.hist(v1_class1_df['V1'],  density = True, bins = 20, color ='maroon', ec = 'white')
+plt.hist(v1_class0_df['V1'],  density = True, bins = 20, color ='gray', alpha = 0.5, ec = 'black')
+plt.xlabel('V1')
+plt.legend(labels=['Class 1', 'Class 0'])
+plt.show()
+
+
+Задание на повторение
+
+1.
+import numpy as np 
+a = np.linspace(12, 23, num =  12)
+
+print(a)
+print(a.shape)
+
+2.
+b = a.reshape(3, 4)
+c = a.reshape(4, 3)
+f = a.reshape(2, 6)
+d = a.reshape(6, 2)
+e = a.reshape(1, 12)
+print(b)
+print(c)
+print(f)
+print(d)
+print(e)
+
+3.
+b = a.reshape(12, -1)
+c = a.reshape(4, -1)
+f = a.reshape(2, -1)
+d = a.reshape(-1, 4)
+e = a.reshape(-1, 3)
+print(b)
+print(c)
+print(f)
+print(d)
+print(e)
+
+
+4.Я думаю,  что массив  из одного столбца и 12 строк нельзя назвать одномерным, потому что он по определению двумерный(есть строки и столбцы).Одномерный массив имеет что-то одно(или одну строку, или один столбец).
+
+5.
+a = np.random.rand(3,4)
+a1 = np.array(a,dtype=np.float64)
+print(a1)
+print(a)
+
+c = a.flatten()
+print(c)
+
+
+6.
+a = np.arange(20, 0, -2)
+print(a)
+
+
+7.
+b = np.arange(20, 1, -2).reshape(1,10)
+print(b)
+
+
+8.
+#массив a - двумерный из нулей, число строк которого больше чем 1 и на 1 меньше, чем в массиве b
+
+a = np.zeros((2, 2))
+print(a)
+
+b = np.ones((3, 2))
+print(b)
+
+#обьединить  вертикально массивы a + b  = v
+#v.size = 10
+v = np.vstack((a, b))
+print(v)
+v.size
+
+
+9.
+a = np.arange(0, 12)
+print(a)
+
+A = a.reshape(4,3)
+print(A)
+
+At =  np.transpose(A)
+print(At)
+
+B  = np.dot(A,At)
+print(B)
+B.shape
+
+B_inv=np.linalg.inv(B)
+print(B_inv)
+#Singular matrix
+
+
+10. Генератор случайных чисел(42)
+
+import random
+random.seed(42)
+print(random.random())
+
+for i in range(5)
+    random.seed(11)
+    print(random.randint(1, 1000))
+
+11.
+c = np.random.randint(0, 15, 16)
+print(c)
+
+
+12-13.
+C = c.reshape(4, 4)
+print(C)
+k = 10
+D = B+(C*k)
+print(D)
+print(f'Определитель:\n{np.linalg.det(D):.0f}')
+print(f'Ранг:\n{np.linalg.matrix_rank(D)}')
+#обратная матрица D
+D_inv=np.linalg.inv(D)
+print(D_inv)
+D_inv=np.where(D_inv<0, 0, 1)
+D_inv
+print(B)
+print(C)
+E=np.where(D_inv==1, B, C)
+print(E)
+
+
+
+
+
+
+
