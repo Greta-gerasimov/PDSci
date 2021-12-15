@@ -1,0 +1,104 @@
+# Задание 1. Среднее по признакам
+
+
+
+
+import numpy as np
+a = np.array([[1, 6], [2, 8], [3, 11], [3, 10], [1, 7]])
+mean_a = a.mean(axis=0)
+print(f'Матрица:\n{a}')
+print("Средние значения признаков\n mean_a = {}".format(a.mean(axis=0)))
+
+
+print("Форма a: {}".format(a.shape))
+
+#количество строк(наблюдений):
+rows = len(a)
+print(rows)
+
+
+# Задание 2.
+
+
+
+
+a_centered = np.subtract(a,mean_a)
+print(a_centered)
+
+
+
+
+
+b = np.array((a_centered[0:6, 0:1].copy()), dtype = int)
+print(b)
+
+c = np.array((a_centered[0:6, 1:2].copy()), dtype = int)
+print(c)
+
+b_T = np.transpose(b)
+
+a_centered_sp = b_T@c
+
+print(b_T)
+print(f'\nскалярное произведение столбцов:\n a_centered_sp: \n {a_centered_sp}')
+
+
+# Задание 3.
+# Вычисление ковариаций
+
+
+
+
+z = a_centered_sp * (1/(rows - 1))
+print(z)
+
+
+
+
+import pandas as pd
+import numpy as np
+
+
+authors = pd.DataFrame({
+    "author_id": [1, 2, 3],
+    "author_name": ['Тургенев','Чехов','Островский']
+})
+
+authors
+
+
+# In[2]:
+
+
+import pandas as pd
+import numpy as np
+
+
+books = pd.DataFrame({
+    "author_id": [1, 1, 1, 2, 2, 3, 3],
+    "book_title": ['Отцы и дети', 'Рудин', 'Дворянское гнездо', 'Толстый и тонкий', 'Дама с собачкой', 'Гроза', 'Таланты и поклонники'],
+    "price": [450, 300, 350, 500, 450, 370, 290]
+})
+
+books
+
+
+
+
+
+authors_price = pd.merge(authors, books, on='author_id', how='inner')
+print(authors_price)
+
+
+
+
+
+top5 = authors_price.nlargest(5, "price")
+print(top5)
+
+
+
+
+
+
+
